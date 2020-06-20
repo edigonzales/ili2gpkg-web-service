@@ -7,6 +7,7 @@
 3. Deploy to Cloud Run
 4. Build and deploy pipeline
 5. Cache dependencies in docker build
+6. Native binary testen mit disable validation = false
 
 
 ## Developing
