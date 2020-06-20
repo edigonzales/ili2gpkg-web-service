@@ -2,14 +2,20 @@
 
 ## Todo
 
-1. Return GPKG
+1. Return Geopackage
 2. Ajax file upload (eventually)
 3. Deploy to Cloud Run
 4. Build and deploy pipeline
+5. Cache dependencies in docker build
 
 
 ## Developing
 `spring-boot-devtools` können nicht verwendet werden, wenn _native binaries_ gebuildet werden. Resp. die Abhängigkeit muss vor dem Erstellen des _native binaries_ auskommentiert werden.
+
+```
+mvn clean spring-boot:run
+```
+
 
 ## Building (hybrid mode)
 
