@@ -1,5 +1,16 @@
 # ili2gpkg-web-service
 
+## Todo
+
+1. Return GPKG
+2. Ajax file upload (eventually)
+3. Deploy to Cloud Run
+4. Build and deploy pipeline
+
+
+## Developing
+`spring-boot-devtools` können nicht verwendet werden, wenn _native binaries_ gebuildet werden. Resp. die Abhängigkeit muss vor dem Erstellen des _native binaries_ auskommentiert werden.
+
 ## Building (hybrid mode)
 
 ```
