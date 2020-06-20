@@ -1,0 +1,8 @@
+FROM oracle/graalvm-ce:20.1.0-java8
+RUN gu install native-image
+
+EXPOSE 8080
+
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-agentlib:native-image-agent=config-output-dir=/tmp","-Dorg.graalvm.nativeimage.imagecode=agent","-jar","/app.jar"]
