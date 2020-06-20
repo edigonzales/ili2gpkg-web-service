@@ -97,6 +97,16 @@ public class MainController {
             settings.setXtffile(uploadFileName);
 
             Ili2db.run(settings, null);
+            
+//            File resultFile = new File(resultFileName);
+//            InputStream is = new FileInputStream(resultFile);
+//            
+//            return ResponseEntity
+//                    .ok().header("content-disposition", "attachment; filename=" + resultFile.getName())
+//                    .contentLength(resultFile.length())
+////                  .contentType(MediaType.parseMediaType("text/plain"))
+//                    .contentType(MediaType.parseMediaType("application/octet-stream"))
+//                    .body(new InputStreamResource(is));                   
 
             return null;
     	} catch (Exception e) {

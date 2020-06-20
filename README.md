@@ -16,7 +16,6 @@
 mvn clean spring-boot:run
 ```
 
-
 ## Building (hybrid mode)
 
 ```
@@ -46,7 +45,7 @@ _Native binary_ erstellen:
 Zuerst muss ein Fat-Jar gebuildet und anschliessend ein einfaches Docker-Image erstellt werden. Die Anwendung im Image wird mit dem _tracing agent_ gestartet.
 ```
 ./mvnw -DskipTests clean package
-docker build -t sogis/ili2gpkg-web-service-agent -f Dockerfile.jvm .
+docker build -t sogis/ili2gpkg-web-service-agent -f Dockerfile.agent .
 docker run --rm --name ili2gpkg-web-service-agent -v /tmp:/tmp -p8080:8080 sogis/ili2gpkg-web-server-agent
 ```
 
