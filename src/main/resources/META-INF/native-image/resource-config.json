@@ -129,6 +129,7 @@
     {"pattern":"\\Qorg/springframework/web/servlet/config/annotation/WebMvcConfigurer.class\\E"}, 
     {"pattern":"\\Qorg/sqlite/native/Linux/x86_64/libsqlitejdbc.so\\E"}, 
     {"pattern":"\\Qsqlite-jdbc.properties\\E"}, 
+    {"pattern":"\\Qstatic/upload.html\\E"}, 
     {"pattern":"\\Qsun/net/idn/uidna.spp\\E"}, 
     {"pattern":"\\Qsun/text/resources/unorm.icu\\E"}
   ],

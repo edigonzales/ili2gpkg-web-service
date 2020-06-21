@@ -1,10 +1,12 @@
 # ili2gpkg-web-service
 
+**Damn it:** `com.oracle.svm.core.jdk.UnsupportedFeatureError: ObjectOutputStream.writeObject()`
+
 ## Todo
 
 - ~~Return Geopackage~~
 - ~~Ajax file upload (?)~~
-- Hardcode LV03 for Gefahrenkartierung
+- ~~Hardcode LV03 for Gefahrenkartierung~~
 - Deploy to Cloud Run
 - Build and deploy pipeline
 - Cache dependencies in docker build
@@ -49,7 +51,7 @@ Zuerst muss ein Fat-Jar gebuildet und anschliessend ein einfaches Docker-Image e
 ```
 ./mvnw -DskipTests clean package
 docker build -t sogis/ili2gpkg-web-service-agent -f Dockerfile.agent .
-docker run --rm --name ili2gpkg-web-service-agent -v /tmp:/tmp -p8080:8080 sogis/ili2gpkg-web-server-agent
+docker run --rm --name ili2gpkg-web-service-agent -v /tmp:/tmp -p8080:8080 sogis/ili2gpkg-web-service-agent
 ```
 
 Möglichst alles in der Anwendung manuell durchspielen/durchklicken und mit Ctrl+C Anwendung beenden. Im `/tmp`-Ordner sollten die vier Config-Dateien liegen:
