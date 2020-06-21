@@ -1,0 +1,78 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.1.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+}
+
+apply from: "$rootDir/gradle/versioning.gradle"
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://repo.spring.io/milestone')
+    }
+
+    maven {
+        url = uri('http://jars.interlis.ch/')
+    }
+
+    maven {
+        url = uri('http://repo.maven.apache.org/maven2')
+    }
+}
+
+
+dependencies {
+    implementation 'org.graalvm.nativeimage:svm:20.1.0'
+
+    implementation 'org.xerial:sqlite-jdbc:3.27.2'
+    implementation 'ch.interlis:ili2gpkg:4.4.3'
+    implementation 'ch.interlis:ili2c-core:5.1.1'
+    implementation 'ch.interlis:ili2c-tool:5.1.1'
+    implementation 'ch.interlis:iox-ili:1.21.0'
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
+
+/*
+dependencies {
+    implementation 'org.graalvm.nativeimage:svm:20.1.0'
+    implementation 'org.xerial:sqlite-jdbc:3.27.2'
+    implementation 'ch.interlis:ili2gpkg:4.4.3'
+    implementation 'ch.interlis:ili2c-core:5.1.1'
+    implementation 'ch.interlis:ili2c-tool:5.1.1'
+    implementation 'ch.interlis:iox-ili:1.21.0'
+    implementation 'ch.interlis:ili2db:4.4.3'
+    implementation 'ch.ehi:ehibasics:1.2.0'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.3.1.RELEASE'
+    implementation 'org.springframework.experimental:spring-graalvm-native:0.7.1'
+    implementation 'org.springframework:spring-context-indexer:5.2.7.RELEASE'
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools:2.3.1.RELEASE'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.1.RELEASE'
+}
+
+group = 'ch.so.agi'
+description = 'ili2gpkg-web-service'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+*/
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
