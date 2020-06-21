@@ -59,12 +59,6 @@
                                 <br/>                
                                 <div class="mt-3">
                                     <button type="submit" class="btn btn-primary" id="btnSubmit"><span>Submit</span></button>
-<!--
-<button class="btn btn-primary" type="button" disabled>
-  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-  Loading...
-</button>
---> 
                                 </div>
                             </form>
                         <!--</div>
@@ -177,13 +171,17 @@
                         textElement.innerText = "Submit";
                         button.appendChild(textElement);
 
-                        window.alert(xhr.responseText);
+                        window.alert(ab2str(xhr.response));
                     }
                 }
             }
 
             xhr.open("POST", "upload", true);
             xhr.send(formData);
+        }
+
+        function ab2str(buf) {
+            return String.fromCharCode.apply(null, new Uint8Array(buf));
         }
     </script>
 
