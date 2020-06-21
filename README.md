@@ -3,16 +3,17 @@
 **Damn it:** `com.oracle.svm.core.jdk.UnsupportedFeatureError: ObjectOutputStream.writeObject()`
 
 ## Todo
-
+- Build and deploy pipeline
+- use fetch() api for ajax upload
+- Logfile anzeigen bei Fehler
+- use fetch() api for ajax upload
 - ~~Return Geopackage~~
 - ~~Ajax file upload (?)~~
 - ~~Hardcode LV03 for Gefahrenkartierung~~
-- Deploy to Cloud Run
-- Build and deploy pipeline
-- Cache dependencies in docker build
-- Native binary testen mit disable validation = false
-- Logfile anzeigen bei Fehler
-- use fetch() api for ajax upload
+- ~~Native binary testen mit disable validation = false~~
+- (Deploy to Cloud Run)
+- (Build and deploy pipeline for native binary)
+- (Cache dependencies in docker build for native binary)
 
 ## Developing
 `spring-boot-devtools` können nicht verwendet werden, wenn _native binaries_ gebuildet werden. Resp. die Abhängigkeit muss vor dem Erstellen des _native binaries_ auskommentiert werden.
