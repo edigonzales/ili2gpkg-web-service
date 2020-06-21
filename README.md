@@ -2,13 +2,14 @@
 
 ## Todo
 
-1. Return Geopackage
-2. Ajax file upload (eventually)
-3. Deploy to Cloud Run
-4. Build and deploy pipeline
-5. Cache dependencies in docker build
-6. Native binary testen mit disable validation = false
-
+- ~~Return Geopackage~~
+- ~~Ajax file upload (?)~~
+- Hardcode LV03 for Gefahrenkartierung
+- Deploy to Cloud Run
+- Build and deploy pipeline
+- Cache dependencies in docker build
+- Native binary testen mit disable validation = false
+- Logfile anzeigen bei Fehler
 
 ## Developing
 `spring-boot-devtools` können nicht verwendet werden, wenn _native binaries_ gebuildet werden. Resp. die Abhängigkeit muss vor dem Erstellen des _native binaries_ auskommentiert werden.

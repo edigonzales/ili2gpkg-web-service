@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,6 +13,7 @@ import java.nio.file.Paths;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -98,17 +101,15 @@ public class MainController {
 
             Ili2db.run(settings, null);
             
-//            File resultFile = new File(resultFileName);
-//            InputStream is = new FileInputStream(resultFile);
-//            
-//            return ResponseEntity
-//                    .ok().header("content-disposition", "attachment; filename=" + resultFile.getName())
-//                    .contentLength(resultFile.length())
-////                  .contentType(MediaType.parseMediaType("text/plain"))
-//                    .contentType(MediaType.parseMediaType("application/octet-stream"))
-//                    .body(new InputStreamResource(is));                   
-
-            return null;
+            File gpkgFile = new File(gpkgFileName);
+            InputStream is = new FileInputStream(gpkgFile);
+            
+            return ResponseEntity
+                    .ok().header("content-disposition", "attachment; filename=" + gpkgFile.getName())
+                    .contentLength(gpkgFile.length())
+//                  .contentType(MediaType.parseMediaType("text/plain"))
+                    .contentType(MediaType.parseMediaType("application/octet-stream"))
+                    .body(new InputStreamResource(is));                   
     	} catch (Exception e) {
             e.printStackTrace();
             log.error(e.getMessage());
