@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import javax.servlet.ServletContext;
 
@@ -28,6 +29,13 @@ import org.springframework.web.multipart.MultipartFile;
 import ch.ehi.ili2db.base.Ili2db;
 import ch.ehi.ili2db.gui.Config;
 import ch.ehi.ili2gpkg.GpkgMain;
+import ch.interlis.iom_j.itf.ItfReader;
+import ch.interlis.iom_j.xtf.XtfReader;
+import ch.interlis.iox.IoxEvent;
+import ch.interlis.iox.IoxException;
+import ch.interlis.iox.IoxReader;
+import ch.interlis.iox_j.EndTransferEvent;
+import ch.interlis.iox_j.StartBasketEvent;
 
 @Controller
 public class MainController {
@@ -75,8 +83,19 @@ public class MainController {
             Config settings = createConfig();
             settings.setFunction(Config.FC_IMPORT);
             settings.setDoImplicitSchemaImport(true);
-            settings.setDefaultSrsCode("2056"); // TODO Hardcodieren für Naturgefahren.
-        	
+
+            String modelName = getModelNameFromTransferFile(uploadFileName);
+            settings.setModels(modelName);
+            
+            // Hardcodiert für altes Naturgefahrenkarten-Modell, damit
+            // nicht eine Koordinatenystemoption im GUI exponiert werden
+            // muss. Mit LV03 wollen wir nichts mehr am Hut haben.            
+            if (modelName.equalsIgnoreCase("Naturgefahrenkarte_SO_V11")) {
+                settings.setDefaultSrsCode("21781");
+            } else {
+                settings.setDefaultSrsCode("2056");
+            }
+
             if (strokeArcs != null) {
                 settings.setStrokeArcs(settings, settings.STROKE_ARCS_ENABLE);
             }
@@ -123,4 +142,64 @@ public class MainController {
         return settings;
     }
 
+    private String getModelNameFromTransferFile(String transferFileName) throws IoxException {
+        String model = null;
+        String ext = getExtensionByString(transferFileName).orElseThrow(IoxException::new);
+        
+        IoxReader ioxReader = null;
+
+        try {
+            File transferFile = new File(transferFileName);
+
+            if (ext.equalsIgnoreCase("itf")) {
+                ioxReader = new ItfReader(transferFile);
+            } else {
+                ioxReader = new XtfReader(transferFile);
+            }
+
+            IoxEvent event;
+            StartBasketEvent be = null;
+            do {
+                event = ioxReader.read();
+                if (event instanceof StartBasketEvent) {
+                    be = (StartBasketEvent) event;
+                    break;
+                }
+            } while (!(event instanceof EndTransferEvent));
+
+            ioxReader.close();
+            ioxReader = null;
+
+            if (be == null) {
+                throw new IllegalArgumentException("no baskets in transfer-file");
+            }
+
+            String namev[] = be.getType().split("\\.");
+            model = namev[0];
+
+        } catch (IoxException e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            throw new IoxException("could not parse file: " + new File(transferFileName).getName());
+        } finally {
+            if (ioxReader != null) {
+                try {
+                    ioxReader.close();
+                } catch (IoxException e) {
+                    log.error(e.getMessage());
+                    e.printStackTrace();
+                    throw new IoxException(
+                            "could not close interlis transfer file: " + new File(transferFileName).getName());
+                }
+                ioxReader = null;
+            }
+        }
+        return model;
+    } 
+    
+    private Optional<String> getExtensionByString(String filename) {
+        return Optional.ofNullable(filename)
+                .filter(f -> f.contains("."))
+                .map(f -> f.substring(filename.lastIndexOf(".") + 1));
+    }    
 }

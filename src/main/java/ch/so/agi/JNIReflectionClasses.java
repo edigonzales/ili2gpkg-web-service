@@ -42,8 +42,8 @@ public class JNIReflectionClasses implements Feature {
             NativeDB.class,
             Function.class,
             Function.Aggregate.class,
-            ProgressHandler.class,
-            Function.Window.class,
+//            ProgressHandler.class,
+//            Function.Window.class,
             org.sqlite.core.DB.ProgressObserver.class
         };
     }

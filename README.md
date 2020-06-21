@@ -10,6 +10,7 @@
 - Cache dependencies in docker build
 - Native binary testen mit disable validation = false
 - Logfile anzeigen bei Fehler
+- use fetch() api for ajax upload
 
 ## Developing
 `spring-boot-devtools` können nicht verwendet werden, wenn _native binaries_ gebuildet werden. Resp. die Abhängigkeit muss vor dem Erstellen des _native binaries_ auskommentiert werden.

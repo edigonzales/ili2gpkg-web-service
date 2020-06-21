@@ -120,6 +120,9 @@
 
             var formData = new FormData(form);
             var xhr = new XMLHttpRequest();
+            // see https://stackoverflow.com/questions/20287600/ajax-response-gives-a-corrupted-compressed-tgz-file
+            xhr.responseType = 'arraybuffer';
+
             // xhr.onload = function (e) { 
             //     if (xhr.status == 200) {
             //         console.log("gut");
