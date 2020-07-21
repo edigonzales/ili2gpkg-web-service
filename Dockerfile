@@ -4,7 +4,6 @@ RUN gu install native-image
 COPY . /home/app/ili2gpkg
 WORKDIR /home/app/ili2gpkg
 
-#RUN ./mvnw dependency:go-offline 
 RUN ./mvnw -Pnative -DskipTests clean package
 
 FROM frolvlad/alpine-glibc
